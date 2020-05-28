@@ -9,3 +9,5 @@ for (var i = 0; i < root_nodes.length; i++) {
 	var root_node = root_nodes[i];
 	unlock_all(root_node);
 }
+
+MessageBox.information(qsTr("All pose parameters unlocked."), qsTr("Pose Unlock"), qsTr("&OK") );

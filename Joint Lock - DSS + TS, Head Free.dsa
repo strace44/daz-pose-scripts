@@ -13,3 +13,4 @@ for (var i = 0; i < root_nodes.length; i++) {
 	lock_all(root_node, torso_nodes, do_lock);
 	lock_all(root_node, product2(left_right, arm_node_names), do_lock);
 }
+MessageBox.information(qsTr("DSS + TS pose parameters locked."), qsTr("Pose Lock"), qsTr("&OK") );
