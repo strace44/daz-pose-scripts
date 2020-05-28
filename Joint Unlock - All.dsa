@@ -10,4 +10,4 @@ for (var i = 0; i < root_nodes.length; i++) {
 	unlock_all(root_node);
 }
 
-MessageBox.information(qsTr("All pose parameters unlocked."), qsTr("Pose Unlock"), qsTr("&OK") );
+MessageBox.information(qsTr("All figure parameters unlocked."), qsTr("Pose Unlock"), qsTr("&OK") );
