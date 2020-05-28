@@ -14,4 +14,5 @@ for (var i = 0; i < root_nodes.length; i++) {
 	lock_all(root_node, head_nodes, do_lock);
 	lock_all(root_node, product2(left_right, arm_node_names), do_lock);
 }
-MessageBox.information(qsTr("DSS + TS (Risser/Gag) pose parameters locked."), qsTr("Pose Lock"), qsTr("&OK") );
+
+report_results(root_nodes, "DSS + TS (Risser/Gag) pose parameters locked.");

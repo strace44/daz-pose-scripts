@@ -39,6 +39,15 @@ var hand_pose_properties = [
 	"HandChop"
 ];
 
+var toe_node_name = "Toe";
+var ankle_node_names = [
+	"Metatarsals",
+	"Foot"
+];
+var knee_node_names = [
+	"Shin"
+];
+
 function get_selected_root_nodes() {
 	// For multiple characters to lock
 	var root_nodes = [];
@@ -97,6 +106,16 @@ function lock_all(root_node, node_names, lock) {
 	}
 }
 
+function lock_toe_bend(root_node, node_names, lock) {
+	for (var j = 0; j < node_names.length; j++) {
+		var name = node_names[j];
+		var node = root_node.findNodeChild(name, true);
+		if (node.getXRotControl()) {
+			node.getXRotControl().lock(lock);
+		}
+	}
+}
+
 function unlock_all(root_node) {
 	var property_list = root_node.getPropertyList();
 	for (var i = 0; i < property_list.length; i++) {
@@ -131,3 +150,11 @@ function lock_all_pose(root_node, lock) {
 }
 
 print("Pose lock functions loaded")
+
+function report_results(root_nodes, success_message) {
+	if (root_nodes.length > 0) {
+		MessageBox.information(qsTr(success_message), qsTr("Pose Lock"), qsTr("&OK") );
+	} else {
+		MessageBox.critical(qsTr("At least one figure must be selected."), qsTr("Pose Lock"), qsTr("&OK") );
+	}
+}
