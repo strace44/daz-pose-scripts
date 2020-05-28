@@ -89,6 +89,7 @@ function product3(labels_1, labels_2, labels_3) {
 }
 
 var lr_hand_pose_properties = product3(pose_control_prefix, left_right, hand_pose_properties);
+var lr_arm_node_names =  product2(left_right, arm_node_names);
 
 function lock_all(root_node, node_names, lock) {
 	for (var j = 0; j < node_names.length; j++) {
@@ -137,19 +138,17 @@ function unlock_all(root_node) {
 	}
 }
 
-function lock_all_pose(root_node, lock) {
+function lock_all_pose(root_node, pose_prop_names, lock) {
 	property_list = root_node.getPropertyList();
 	for (var i = 0; i < property_list.length; i++) {
 		var prop_obj = property_list[i];
 		var prop_name = prop_obj.name;
-		if (lr_hand_pose_properties.indexOf(prop_name) >= 0) {
+		if (pose_prop_names.indexOf(prop_name) >= 0) {
 			print("Found property", prop_name);
 			prop_obj.lock(lock);
 		}
 	}
 }
-
-print("Pose lock functions loaded")
 
 function report_results(root_nodes, success_message) {
 	if (root_nodes.length > 0) {
