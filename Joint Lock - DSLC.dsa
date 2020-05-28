@@ -1,0 +1,162 @@
+// DAZ Studio version 4.12.0.86 filetype DAZ Script
+
+// Nodes to simply lock bend, twist, and side-to-side
+var torso_nodes = [
+	"chestUpper",
+	"chestLower",
+	"abdomenUpper"
+];
+var head_nodes = [
+	"head",
+	"neckUpper",
+	"neckLower"
+];
+
+var arm_node_names = [
+	"Thumb3",
+	"Thumb2",
+	"Thumb1",
+	"Hand",
+	"ForearmTwist",
+	"ForearmBend",
+	"ShldrTwist",
+	"ShldrBend",
+	"Collar"
+];
+var left_right = [
+	"l",
+	"r"
+];
+var pose_control_prefix = ["pCTRL"];
+var hand_pose_properties = [
+	"ThumbInOut",
+	"ThumbGrasp",
+	"ThumbFist",
+	"ThumbBend",
+	"HandSpread",
+	"HandGrasp",
+	"HandFist",
+	"HandChop"
+];
+
+var toe_node_name = "Toe";
+var ankle_node_names = [
+	"Metatarsals",
+	"Foot"
+];
+var knee_node_names = [
+	"Shin"
+];
+
+function get_selected_root_nodes() {
+	// For multiple characters to lock
+	var root_nodes = [];
+
+	var selected_nodes = Scene.getSelectedNodeList();
+	for (var i = 0; i < selected_nodes.length; i++) {
+		var selected_node = selected_nodes[i];
+		while (!selected_node.isRootNode()) {
+			print(selected_node.name);
+			selected_node = selected_node.getNodeParent();
+		}
+		root_nodes.push(selected_node);
+	}
+	return root_nodes;
+}
+
+function product2(labels_1, labels_2) {
+	var joined = [];
+	for (var i = 0; i < labels_1.length; i++) {
+		for (var j = 0; j < labels_2.length; j++) {
+			var pieces = [labels_1[i], labels_2[j]];
+			joined.push(pieces.join(''));
+		}
+	}
+	return joined;
+}
+
+function product3(labels_1, labels_2, labels_3) {
+	var joined = [];
+	for (var i = 0; i < labels_1.length; i++) {
+		for (var j = 0; j < labels_2.length; j++) {
+			for (var k = 0; k < labels_3.length; k++) {
+				var pieces = [labels_1[i], labels_2[j], labels_3[k]];
+				joined.push(pieces.join(''));
+			}
+		}
+	}
+	return joined;
+}
+
+var lr_hand_pose_properties = product3(pose_control_prefix, left_right, hand_pose_properties);
+
+function lock_toe_bend(root_node, node_names, lock) {
+	for (var j = 0; j < node_names.length; j++) {
+		var name = node_names[j];
+		var node = root_node.findNodeChild(name, true);
+		if (node.getXRotControl()) {
+			node.getXRotControl().lock(lock);
+		}
+	}
+}
+
+function lock_all(root_node, node_names, lock) {
+	for (var j = 0; j < node_names.length; j++) {
+		var name = node_names[j];
+		var node = root_node.findNodeChild(name, true);
+		if (node.getXRotControl()) {
+			node.getXRotControl().lock(lock);
+		}
+		if (node.getYRotControl()) {
+			node.getYRotControl().lock(lock);
+		}
+		if (node.getZRotControl()) {
+			node.getZRotControl().lock(lock);
+		}
+	}
+}
+
+function unlock_all(root_node) {
+	var property_list = root_node.getPropertyList();
+	for (var i = 0; i < property_list.length; i++) {
+		var prop_obj = property_list[i];
+		prop_obj.lock(false);
+	}
+	var children = root_node.getNodeChildren(true);
+	for (var i = 0; i < children.length; i++)  {
+		var node = children[i];
+		if (node.getXRotControl()) {
+			node.getXRotControl().lock(false);
+		}
+		if (node.getYRotControl()) {
+			node.getYRotControl().lock(false);
+		}
+		if (node.getZRotControl()) {
+			node.getZRotControl().lock(false);
+		}
+	}
+}
+
+function lock_all_pose(root_node, lock) {
+	property_list = root_node.getPropertyList();
+	for (var i = 0; i < property_list.length; i++) {
+		var prop_obj = property_list[i];
+		var prop_name = prop_obj.name;
+		if (lr_hand_pose_properties.indexOf(prop_name) >= 0) {
+			print("Found property", prop_name);
+			prop_obj.lock(lock);
+		}
+	}
+}
+
+var do_lock = true;
+
+var root_nodes = get_selected_root_nodes();
+
+for (var i = 0; i < root_nodes.length; i++) {
+	var root_node = root_nodes[i];
+
+	lock_toe_bend(root_node, product2(left_right, [toe_node_name]), do_lock);
+	lock_all(root_node, product2(left_right, ankle_node_names), do_lock);
+}
+MessageBox.information(qsTr("DSLC pose parameters locked."), qsTr("Pose Lock"), qsTr("&OK") );
