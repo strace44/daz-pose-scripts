@@ -47,6 +47,17 @@ var ankle_node_names = [
 var knee_node_names = [
 	"Shin"
 ];
+var foot_pose_properties = [
+	"FootTwist",
+	"FootTipToes",
+	"FootRoll",
+	"FootHeeledShoe"
+];
+// Not worth generalizing the naming
+var extra_foot_pose_props = [
+	"pCTR_FootR_SexyHeelsFD",
+	"pCTR_FootL_SexyHeelsFD"
+]
 
 function get_selected_root_nodes() {
 	// For multiple characters to lock
@@ -90,6 +101,10 @@ function product3(labels_1, labels_2, labels_3) {
 
 var lr_hand_pose_properties = product3(pose_control_prefix, left_right, hand_pose_properties);
 var lr_arm_node_names =  product2(left_right, arm_node_names);
+var lr_foot_pose_properties = (
+	product3(pose_control_prefix, left_right, foot_pose_properties) +
+	extra_foot_pose_props
+);
 
 function lock_all(root_node, node_names, lock) {
 	for (var j = 0; j < node_names.length; j++) {

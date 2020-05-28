@@ -12,6 +12,7 @@ for (var i = 0; i < root_nodes.length; i++) {
 
 	lock_toe_bend(root_node, product2(left_right, [toe_node_name]), do_lock);
 	lock_all(root_node, product2(left_right, ankle_node_names), do_lock);
+	lock_all_pose(root_node, lr_foot_pose_properties, do_lock);
 }
 
 report_results(root_nodes, "DSLC pose parameters locked.");
