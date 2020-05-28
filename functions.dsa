@@ -129,3 +129,5 @@ function lock_all_pose(root_node, lock) {
 		}
 	}
 }
+
+print("Pose lock functions loaded")

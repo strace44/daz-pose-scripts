@@ -1,6 +1,7 @@
 // DAZ Studio version 4.12.0.86 filetype DAZ Script
 
-import("functions.dsa");
+var dir_self = new DzDir(new DzFileInfo(getScriptFileName()).path());
+include(dir_self.filePath("functions.dsa"));
 
 var do_lock = true;
 
