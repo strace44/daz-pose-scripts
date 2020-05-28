@@ -122,12 +122,12 @@ function lock_all(root_node, node_names, lock) {
 	}
 }
 
-function lock_toe_bend(root_node, node_names, lock) {
+function lock_toe_twist(root_node, node_names, lock) {
 	for (var j = 0; j < node_names.length; j++) {
 		var name = node_names[j];
 		var node = root_node.findNodeChild(name, true);
-		if (node.getXRotControl()) {
-			node.getXRotControl().lock(lock);
+		if (node.getZRotControl()) {
+			node.getZRotControl().lock(lock);
 		}
 	}
 }
