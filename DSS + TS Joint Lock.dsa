@@ -131,8 +131,15 @@ function lock_all(root_node, node_names, lock) {
 function lock_all_pose(root_node, lock) {
 	property_list = root_node.getPropertyList();
 	for (var i = 0; i < property_list.length; i++) {
+		var prop_obj = property_list[i];
+		var prop_name = prop_obj.name;
+		if (lr_hand_pose_properties.indexOf(prop_name) >= 0) {
+			print("Found property", prop_name);
+			prop_obj.lock(lock);
+		}
 		//print(property_list[i].name);
 	}
+	/*
 	for (var k = 0; k < lr_hand_pose_properties.length; k++) {
 		// Just try locking all of them, it doesn't hurt
 		print("Getting property", lr_hand_pose_properties[k]);
@@ -141,13 +148,14 @@ function lock_all_pose(root_node, lock) {
 			print("is locked:", property_obj.isLocked());
 			print("Locking property:", property_obj.lock(lock));
 		}
-	}
+	}*/
 }
 
 var do_lock = true;
 
 for (var i = 0; i < root_nodes.length; i++) {
 	var root_node = root_nodes[i];
+	lock_all_pose(root_node, do_lock);
 	lock_all(root_node, torso_nodes, do_lock);
 	lock_all(root_node, head_nodes, do_lock);
 	lock_all(root_node, product2(left_right, arm_node_names), do_lock);
