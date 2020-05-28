@@ -46,8 +46,8 @@ var selected_nodes = Scene.getSelectedNodeList();
 for (var i = 0; i < selected_nodes.length; i++) {
 	var selected_node = selected_nodes[i];
 	while (!selected_node.isRootNode()) {
-		print(selected_node.name);
-		//selected_node = selected_node.getNodeParent();
+		//print(selected_node.name);
+		selected_node = selected_node.getNodeParent();
 	}
 	root_nodes.push(selected_node);
 }
