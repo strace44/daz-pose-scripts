@@ -18,6 +18,7 @@ var thumb_node_names = [
 	"Thumb2",
 	"Thumb1"
 ];
+var collar_node_name = "Collar"
 var arm_node_names = [
 	"Hand",
 	"ForearmTwist",
@@ -111,10 +112,9 @@ var lr_foot_pose_properties = (
 	extra_foot_pose_props
 );
 
-function lock_all(root_node, node_names, lock) {
-	for (var j = 0; j < node_names.length; j++) {
-		var name = node_names[j];
-		var node = root_node.findNodeChild(name, true);
+function lock_nodes(nodes, lock) {
+	for (var j = 0; j < nodes.length; j++) {
+		var node = nodes[j];
 		if (node.getXRotControl()) {
 			node.getXRotControl().lock(lock);
 		}
@@ -142,6 +142,23 @@ function lock_all(root_node, node_names, lock) {
 		if (node.getZScaleControl()) {
 			node.getZScaleControl().lock(lock);
 		}
+	}
+}
+
+function lock_all_by_name(root_node, node_names, lock) {
+	var nodes = node_names.map(
+		function(name) {
+			return root_node.findNodeChild(name, true);
+		}
+	)
+	lock_nodes(nodes, lock);
+}
+
+function lock_all_recursive(root_node, start_node_names, lock) {
+	var descendent_nodes = [];
+	for (var j = 0; j < node_names.length; j++) {
+		var name = node_names[j];
+		var node = root_node.findNodeChild(name, true);
 	}
 }
 

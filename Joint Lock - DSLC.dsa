@@ -11,7 +11,7 @@ for (var i = 0; i < root_nodes.length; i++) {
 	var root_node = root_nodes[i];
 
 	lock_toe_twist(root_node, string_product([left_right, [toe_node_name]]), do_lock);
-	lock_all(root_node, string_product([left_right, ankle_node_names]), do_lock);
+	lock_all_by_name(root_node, string_product([left_right, ankle_node_names]), do_lock);
 	lock_all_pose(root_node, lr_foot_pose_properties, do_lock);
 }
 
