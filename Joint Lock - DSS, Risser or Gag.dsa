@@ -1,0 +1,19 @@
+// DAZ Studio version 4.12.0.86 filetype DAZ Script
+
+var dir_self = new DzDir(new DzFileInfo(getScriptFileName()).path());
+include(dir_self.filePath("functions.dsa"));
+
+var do_lock = true;
+
+var root_nodes = get_selected_root_nodes();
+
+for (var i = 0; i < root_nodes.length; i++) {
+	var root_node = root_nodes[i];
+	lock_all_pose(root_node, lr_hand_pose_properties, do_lock);
+	lock_all(root_node, torso_nodes, do_lock);
+	lock_all(root_node, lr_pectoral_node_names, do_lock);
+	lock_all(root_node, head_nodes, do_lock);
+	lock_all(root_node, lr_arm_node_names, do_lock);
+}
+
+report_results(root_nodes, "DSS + TS (Risser/Gag) pose parameters locked.");
