@@ -160,10 +160,10 @@ function lock_all_by_name_recursive(root_node, start_node_names, lock) {
 	for (var j = 0; j < start_node_names.length; j++) {
 		var name = start_node_names[j];
 		var node = root_node.findNodeChild(name, true);
+		descendent_nodes.push(node);
 		var children = node.getNodeChildren(true);
 		descendent_nodes = descendent_nodes.concat(children);
 	}
-	descendent_nodes = descendent_nodes.concat(start_node_names)
 	lock_nodes(descendent_nodes, lock);
 }
 
