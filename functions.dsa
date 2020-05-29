@@ -6,6 +6,7 @@ var torso_nodes = [
 	"chestLower",
 	"abdomenUpper"
 ];
+var pectoral_node_name = "Pectoral"
 var head_nodes = [
 	"head",
 	"neckUpper",
@@ -99,6 +100,7 @@ function product3(labels_1, labels_2, labels_3) {
 	return joined;
 }
 
+var lr_pectoral_node_names = product2(left_right, [pectoral_node_name]);
 var lr_hand_pose_properties = product3(pose_control_prefix, left_right, hand_pose_properties);
 var lr_arm_node_names =  product2(left_right, arm_node_names);
 var lr_foot_pose_properties = (
@@ -118,6 +120,24 @@ function lock_all(root_node, node_names, lock) {
 		}
 		if (node.getZRotControl()) {
 			node.getZRotControl().lock(lock);
+		}
+		if (node.getXPosControl()) {
+			node.getXPosControl().lock(lock);
+		}
+		if (node.getYPosControl()) {
+			node.getYPosControl().lock(lock);
+		}
+		if (node.getZPosControl()) {
+			node.getZPosControl().lock(lock);
+		}
+		if (node.getXScaleControl()) {
+			node.getXScaleControl().lock(lock);
+		}
+		if (node.getYScaleControl()) {
+			node.getYScaleControl().lock(lock);
+		}
+		if (node.getZScaleControl()) {
+			node.getZScaleControl().lock(lock);
 		}
 	}
 }
