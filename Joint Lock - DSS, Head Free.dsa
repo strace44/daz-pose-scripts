@@ -9,10 +9,9 @@ var root_nodes = get_selected_root_nodes();
 
 for (var i = 0; i < root_nodes.length; i++) {
 	var root_node = root_nodes[i];
-	lock_all_pose(root_node, lr_hand_pose_properties, do_lock);
 	lock_all(root_node, torso_nodes, do_lock);
 	lock_all(root_node, lr_pectoral_node_names, do_lock);
 	lock_all(root_node, lr_arm_node_names, do_lock);
 }
 
-report_results(root_nodes, "DSS + TS pose parameters locked.");
+report_results(root_nodes, "DSS pose parameters locked.");

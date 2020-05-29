@@ -13,10 +13,12 @@ var head_nodes = [
 	"neckLower"
 ];
 
-var arm_node_names = [
+var thumb_node_names = [
 	"Thumb3",
 	"Thumb2",
-	"Thumb1",
+	"Thumb1"
+];
+var arm_node_names = [
 	"Hand",
 	"ForearmTwist",
 	"ForearmBend",
@@ -102,6 +104,7 @@ function string_product(sequence_of_sequences) {
 
 var lr_pectoral_node_names = string_product([left_right, [pectoral_node_name]]);
 var lr_hand_pose_properties = string_product([pose_control_prefix, left_right, hand_pose_properties]);
+var lr_thumb_node_names =  string_product([left_right, thumb_node_names]);
 var lr_arm_node_names =  string_product([left_right, arm_node_names]);
 var lr_foot_pose_properties = (
 	string_product([pose_control_prefix, left_right, foot_pose_properties]) +

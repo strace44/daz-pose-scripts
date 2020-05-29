@@ -13,6 +13,7 @@ for (var i = 0; i < root_nodes.length; i++) {
 	lock_all(root_node, torso_nodes, do_lock);
 	lock_all(root_node, lr_pectoral_node_names, do_lock);
 	lock_all(root_node, lr_arm_node_names, do_lock);
+	lock_all(root_node, lr_thumb_node_names, do_lock);
 }
 
 report_results(root_nodes, "DSS + TS pose parameters locked.");
