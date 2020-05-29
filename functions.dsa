@@ -76,35 +76,35 @@ function get_selected_root_nodes() {
 	return root_nodes;
 }
 
-function product2(labels_1, labels_2) {
-	var joined = [];
-	for (var i = 0; i < labels_1.length; i++) {
-		for (var j = 0; j < labels_2.length; j++) {
-			var pieces = [labels_1[i], labels_2[j]];
-			joined.push(pieces.join(''));
-		}
-	}
-	return joined;
+function product(sequence_of_sequences) {
+    if (sequence_of_sequences.length == 0) {
+        return [];
+    } else if (sequence_of_sequences.length == 1) {
+        return sequence_of_sequences[0];
+    } else {
+        var product_rest = product(sequence_of_sequences.slice(1));
+        var joined = [];
+        for (var i = 0; i < sequence_of_sequences[0].length; i++) {
+            for (var j = 0; j < product_rest.length; j++) {
+                var subseq = [sequence_of_sequences[0][i]];
+                subseq = subseq.concat(product_rest[j]);
+                joined.push(subseq);
+            }
+        }
+        return joined;
+    }
 }
 
-function product3(labels_1, labels_2, labels_3) {
-	var joined = [];
-	for (var i = 0; i < labels_1.length; i++) {
-		for (var j = 0; j < labels_2.length; j++) {
-			for (var k = 0; k < labels_3.length; k++) {
-				var pieces = [labels_1[i], labels_2[j], labels_3[k]];
-				joined.push(pieces.join(''));
-			}
-		}
-	}
-	return joined;
+function string_product(sequence_of_sequences) {
+	var product_results = product(sequence_of_sequences);
+	return product_results.map(function(l) {return l.join("")});
 }
 
-var lr_pectoral_node_names = product2(left_right, [pectoral_node_name]);
-var lr_hand_pose_properties = product3(pose_control_prefix, left_right, hand_pose_properties);
-var lr_arm_node_names =  product2(left_right, arm_node_names);
+var lr_pectoral_node_names = string_product([left_right, [pectoral_node_name]]);
+var lr_hand_pose_properties = string_product([pose_control_prefix, left_right, hand_pose_properties]);
+var lr_arm_node_names =  string_product([left_right, arm_node_names]);
 var lr_foot_pose_properties = (
-	product3(pose_control_prefix, left_right, foot_pose_properties) +
+	string_product([pose_control_prefix, left_right, foot_pose_properties]) +
 	extra_foot_pose_props
 );
 
