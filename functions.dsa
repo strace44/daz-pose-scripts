@@ -103,6 +103,7 @@ function string_product(sequence_of_sequences) {
 	return product_results.map(function(l) {return l.join("")});
 }
 
+var lr_collar_node_names = string_product([left_right, [collar_node_name]]);
 var lr_pectoral_node_names = string_product([left_right, [pectoral_node_name]]);
 var lr_hand_pose_properties = string_product([pose_control_prefix, left_right, hand_pose_properties]);
 var lr_thumb_node_names =  string_product([left_right, thumb_node_names]);
@@ -154,12 +155,16 @@ function lock_all_by_name(root_node, node_names, lock) {
 	lock_nodes(nodes, lock);
 }
 
-function lock_all_recursive(root_node, start_node_names, lock) {
+function lock_all_by_name_recursive(root_node, start_node_names, lock) {
 	var descendent_nodes = [];
-	for (var j = 0; j < node_names.length; j++) {
-		var name = node_names[j];
+	for (var j = 0; j < start_node_names.length; j++) {
+		var name = start_node_names[j];
 		var node = root_node.findNodeChild(name, true);
+		var children = node.getNodeChildren(true);
+		descendent_nodes = descendent_nodes.concat(children);
 	}
+	descendent_nodes = descendent_nodes.concat(start_node_names)
+	lock_nodes(descendent_nodes, lock);
 }
 
 function lock_toe_twist(root_node, node_names, lock) {
