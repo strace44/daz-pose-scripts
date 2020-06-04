@@ -195,6 +195,24 @@ function unlock_all(root_node) {
 		if (node.getZRotControl()) {
 			node.getZRotControl().lock(false);
 		}
+		if (node.getXPosControl()) {
+			node.getXPosControl().lock(false);
+		}
+		if (node.getYPosControl()) {
+			node.getYPosControl().lock(false);
+		}
+		if (node.getZPosControl()) {
+			node.getZPosControl().lock(false);
+		}
+		if (node.getXScaleControl()) {
+			node.getXScaleControl().lock(false);
+		}
+		if (node.getYScaleControl()) {
+			node.getYScaleControl().lock(false);
+		}
+		if (node.getZScaleControl()) {
+			node.getZScaleControl().lock(false);
+		}
 	}
 }
 
